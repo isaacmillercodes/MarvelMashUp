@@ -10,28 +10,53 @@ function getCharId(character) {
     $.ajax({
         url:'https://gateway.marvel.com/v1/public/characters?name=' + character + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
         method: 'GET'
-      }).done(function(charInfo) {
+      })
+      .done(function(charInfo) {
         var idChar = charInfo.data.results[0].id;
-        console.log(idChar);
+        //console.log(idChar);
+        return resolve(idChar);
+      })
+      .fail(function(err) {
+        return reject(err);
       });
   });
-};
+}
 
-function getComicsList(id) {
+// function getComicsList(id) {
+//   return new Promise(function(resolve, reject) {
+//     console.log(id);
+//     $.ajax({
+//       url:'https://gateway.marvel.com:443/v1/public/characters/' + id + '/comics?apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+//       method: 'GET'
+//     })
+//     .done(function(charComics) {
+//       var comicList = charComics.data.results;
+//       //console.log(comicList);
+//       return resolve(comicList);
+//     })
+//     .fail(function(err) {
+//       return reject(err);
+//     });
+//   });
+// }
 
+function getComicsList(id1, id2) {
   return new Promise(function(resolve, reject) {
-
+    console.log(id);
     $.ajax({
-      url:'https://gateway.marvel.com:443/v1/public/characters/' + id + '/comics?apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      url: 'https://gateway.marvel.com:443/v1/public/characters/' + id1 + '/comics?sharedAppearances=' + id2 +'&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
       method: 'GET'
-    }).done(function(charComics) {
-
-      return charComics.data.results
-
+    })
+    .done(function(charComics) {
+      var comicList = charComics.data.results;
+      //console.log(comicList);
+      return resolve(comicList);
+    })
+    .fail(function(err) {
+      return reject(err);
     });
-
-  })
-};
+  });
+}
 
 //Event handler
 
@@ -41,10 +66,19 @@ $('form').on('submit', function(event) {
   var char1 = encodeURI($('#character1').val());
   var char2 = encodeURI($('#character2').val());
 
-  var char1List = getCharId(char1).then(function(charId) {
-    getComicsList(charId);
+  var sharedList = getCharId(char1)
+    .then(function(charId) {
+    //console.log('get dat list');
+    return getComicsList(charId);
   });
 
+  var char2List = getCharId(char2).then(function(charId) {
+    //console.log('get another list');
+    return getComicsList(charId);
+  });
+
+  //console.log(char1List);
+  //console.log(char2List);
 
   //var char2Id = getCharId(char2);
 
