@@ -1,5 +1,5 @@
 /* add custom styles */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   text-align: center;
   color: #504a4a;
 }
@@ -20,4 +20,9 @@ body {
 .button {
   background-color: #518cca;
   color: white;
+}
+
+.results-list {
+  margin: 0 auto;
+  list-style: none;
 }

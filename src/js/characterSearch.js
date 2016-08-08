@@ -23,7 +23,8 @@ $('form').on('submit', function(event) {
     }).done(function(char1Comics) {
       var resultsArray = char1Comics.data.results;
       resultsArray.forEach(function(eachComic) {
-        console.log(eachComic.title);
+        console.log(eachComic);
+        $('.results-list').append('<div class="row"><h5><img src="' + eachComic.thumbnail.path + '/portrait_medium.jpg"> ' + eachComic.title + '</h5><p>' + eachComic.description + '</p></div>')
       })
     });
 
