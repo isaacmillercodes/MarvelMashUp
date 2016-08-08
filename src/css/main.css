@@ -1,4 +1,23 @@
 /* add custom styles */
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
+  color: #504a4a;
+}
+
+header {
+  background-image: url("../assets/images/MarvelHeader.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 100%;
+  height: 360px;
+  margin: 0 auto;
+}
+
+body {
+  background-color: white;
+}
+
+.button {
+  background-color: #518cca;
+  color: white;
 }
