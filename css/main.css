@@ -26,3 +26,15 @@ body {
   margin: 0 auto;
   list-style: none;
 }
+
+/*.result {
+  list-style: none;
+}*/
+
+.result-list img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 75%;
+  bottom: 50%;
+}
