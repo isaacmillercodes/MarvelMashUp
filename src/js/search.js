@@ -5,6 +5,10 @@ $(document).on('ready', function() {
 $('form').on('submit', function(event) {
   event.preventDefault();
 
+  $('.no-results').remove();
+
+  $('.result').remove();
+
   var char1 = encodeURI($('#character1').val());
   var char2 = encodeURI($('#character2').val());
 
@@ -96,26 +100,44 @@ function twoCharSearch(name1, name2) {
 
           $('.loading').remove();
 
+          var combinedList = [];
+
           char1List.forEach(function(result1) {
             char2List.forEach(function(result2) {
               if (result1.id === result2.id) {
-
-                var img = result1.thumbnail.path;
-                var title = result1.title;
-                var description = result1.description;
-                var learnMore = result1.urls[0].url;
-                var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
-
-
-                $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
-
-                result1.creators.items.forEach(function(creator) {
-                  $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
-                });
-                counter++;
+                combinedList.push(result1);
               }
             });
           });
+
+          console.log(combinedList);
+
+          if (combinedList.length > 0) {
+
+            combinedList.forEach(function(combinedResult) {
+
+              var img = combinedResult.thumbnail.path;
+              var title = combinedResult.title;
+              var description = combinedResult.description;
+              var learnMore = combinedResult.urls[0].url;
+              var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
+
+
+              $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
+
+              combinedResult.creators.items.forEach(function(creator) {
+                $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
+              });
+              counter++;
+
+            });
+
+          } else {
+
+            $('.results-list').append('<div class="row no-results"><h5>No issues found! Try again.</h5></div>');
+
+          }
+
 
         });
 
