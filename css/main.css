@@ -1,5 +1,5 @@
 /* add custom styles */
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6 {
   text-align: center;
   color: #504a4a;
 }
@@ -24,13 +24,23 @@ body {
 
 .results-list {
   margin: 0 auto;
-  list-style: none;
 }
 
-/*.result-list img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 75%;
-  bottom: 50%;
-}*/
+.results-list div {
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+.results-list img {
+  float: left;
+}
+
+.results-list p,
+.results-list li {
+  text-align: center;
+  margin-left: 33%;
+}
+
+h5 p {
+  list-style: none;
+}
