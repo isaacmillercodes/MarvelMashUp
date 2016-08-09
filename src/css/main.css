@@ -41,6 +41,11 @@ body {
   margin-left: 33%;
 }
 
+.creator-info {
+  line-height: .1;
+  font-style: italic;
+}
+
 h5 p {
   list-style: none;
 }
