@@ -30,14 +30,14 @@ $('form').on('submit', function(event) {
   });
 });
 
-  // https://gateway.marvel.com:443/v1/public/characters/1009718/comics?orderBy=onsaleDate&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
+// https://gateway.marvel.com:443/v1/public/characters/1009718/comics?orderBy=onsaleDate&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
 
-  // $.ajax({
-  //   url:'https://gateway.marvel.com/v1/public/characters?name=' + char2 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
-  //   method: 'GET'
-  // }).done(function(char2Info) {
-  //   console.log(char2Info);
-  // });
-  //http://gateway.marvel.com:80/v1/public/characters?name=Wolverine&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
+// $.ajax({
+//   url:'https://gateway.marvel.com/v1/public/characters?name=' + char2 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+//   method: 'GET'
+// }).done(function(char2Info) {
+//   console.log(char2Info);
+// });
+//http://gateway.marvel.com:80/v1/public/characters?name=Wolverine&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
 
-  //https://gateway.marvel.com:443/v1/public/characters?name=wolverine&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
+//https://gateway.marvel.com:443/v1/public/characters?name=wolverine&apikey=f0807a37bd4542fa4a26ada4b33c8f5d
