@@ -22,6 +22,8 @@ function getCharId(character) {
   });
 }
 
+console.log(getCharId('wolverine'));
+
 // function getComicsList(id) {
 //   return new Promise(function(resolve, reject) {
 //     console.log(id);
