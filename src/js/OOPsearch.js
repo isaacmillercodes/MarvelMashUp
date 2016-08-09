@@ -8,11 +8,41 @@ $('form').on('submit', function(event) {
   var char1 = encodeURI($('#character1').val());
   var char2 = encodeURI($('#character2').val());
 
-  charSearch(char1, char2);
-
+  if (char2 === '') {
+    oneCharSearch(char1);
+  } else {
+    twoCharSearch(char1, char2);
+  }
 });
 
-function charSearch(name1, name2) {
+function oneCharSearch(name1) {
+
+  $.ajax({
+    url:'https://gateway.marvel.com/v1/public/characters?name=' + name1 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+    method: 'GET'
+  }).done(function(char1Info) {
+    var idChar1 = char1Info.data.results[0].id;
+    console.log(idChar1);
+
+    $.ajax({
+      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar1 + '/comics?format=comic&formatType=comic&noVariants=true&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      method: 'GET'
+    }).done(function(char1Comics) {
+      var char1List = char1Comics.data.results;
+      console.log(char1List);
+
+
+      char1List.forEach(function(result1) {
+          $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><p>' + result1.description + '</p></div>');
+
+      });
+
+    });
+
+  });
+}
+
+function twoCharSearch(name1, name2) {
 
   $.ajax({
     url:'https://gateway.marvel.com/v1/public/characters?name=' + name1 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
