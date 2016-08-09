@@ -13,9 +13,12 @@ $('form').on('submit', function(event) {
   } else {
     twoCharSearch(char1, char2);
   }
+
 });
 
 function oneCharSearch(name1) {
+
+  $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
 
   $.ajax({
     url:'https://gateway.marvel.com/v1/public/characters?name=' + name1 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
@@ -33,6 +36,8 @@ function oneCharSearch(name1) {
 
       var counter = 0;
 
+      $('.loading').remove();
+
       char1List.forEach(function(result1) {
 
         var img = result1.thumbnail.path;
@@ -42,7 +47,7 @@ function oneCharSearch(name1) {
         var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
 
 
-        $('.results-list').append('<div class="row"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
+        $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
         result1.creators.items.forEach(function(creator) {
           $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
@@ -56,6 +61,8 @@ function oneCharSearch(name1) {
 }
 
 function twoCharSearch(name1, name2) {
+
+  $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
 
   $.ajax({
     url:'https://gateway.marvel.com/v1/public/characters?name=' + name1 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
@@ -87,6 +94,8 @@ function twoCharSearch(name1, name2) {
 
           var counter = 0;
 
+          $('.loading').remove();
+
           char1List.forEach(function(result1) {
             char2List.forEach(function(result2) {
               if (result1.id === result2.id) {
@@ -98,7 +107,7 @@ function twoCharSearch(name1, name2) {
                 var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
 
 
-                $('.results-list').append('<div class="row"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
+                $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
                 result1.creators.items.forEach(function(creator) {
                   $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
