@@ -31,10 +31,22 @@ function oneCharSearch(name1) {
       var char1List = char1Comics.data.results;
       console.log(char1List);
 
+      var counter = 0;
 
       char1List.forEach(function(result1) {
-          $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><p>' + result1.description + '</p></div>');
 
+        $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p></div>');
+
+
+        console.log(result1.creators);
+        console.log(result1.creators.items);
+
+
+        result1.creators.items.forEach(function(creator) {
+          $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
+          console.log(creator);
+        });
+        counter++;
       });
 
     });
