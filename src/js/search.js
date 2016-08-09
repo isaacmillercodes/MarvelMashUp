@@ -25,7 +25,7 @@ function oneCharSearch(name1) {
     console.log(idChar1);
 
     $.ajax({
-      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar1 + '/comics?format=comic&formatType=comic&noVariants=true&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar1 + '/comics?format=comic&formatType=comic&noVariants=true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
       method: 'GET'
     }).done(function(char1Comics) {
       var char1List = char1Comics.data.results;
@@ -33,9 +33,11 @@ function oneCharSearch(name1) {
 
       var counter = 0;
 
+
+
       char1List.forEach(function(result1) {
 
-        $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p></div>');
+        $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p><a class="learn-more" href="' + result1.urls[0].url + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + result1.title + '">Buy this issue on Amazon</a></div>');
 
         result1.creators.items.forEach(function(creator) {
           $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
@@ -58,7 +60,7 @@ function twoCharSearch(name1, name2) {
     console.log(idChar1);
 
     $.ajax({
-      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar1 + '/comics?format=comic&formatType=comic&noVariants=true&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar1 + '/comics?format=comic&formatType=comic&noVariants=true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
       method: 'GET'
     }).done(function(char1Comics) {
       var char1List = char1Comics.data.results;
@@ -72,7 +74,7 @@ function twoCharSearch(name1, name2) {
         console.log(idChar2);
 
         $.ajax({
-          url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar2 + '/comics?format=comic&formatType=comic&noVariants=true&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+          url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar2 + '/comics?format=comic&formatType=comic&noVariants=true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
           method: 'GET'
         }).done(function(char2Comics) {
           var char2List = char2Comics.data.results;

@@ -1,0 +1,30 @@
+.results-list {
+  margin: 0 auto;
+}
+
+.results-list div {
+  border: 1px solid black;
+  margin-top: 10px;
+}
+
+.results-list img {
+  float: left;
+}
+
+.results-list p,
+.results-list li {
+  text-align: center;
+  margin-left: 33%;
+}
+
+.creator-info {
+  line-height: .1;
+  font-style: italic;
+}
+
+.learn-more,
+.amazon {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
