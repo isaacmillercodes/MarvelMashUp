@@ -37,14 +37,8 @@ function oneCharSearch(name1) {
 
         $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p></div>');
 
-
-        console.log(result1.creators);
-        console.log(result1.creators.items);
-
-
         result1.creators.items.forEach(function(creator) {
           $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
-          console.log(creator);
         });
         counter++;
       });
@@ -84,10 +78,17 @@ function twoCharSearch(name1, name2) {
           var char2List = char2Comics.data.results;
           console.log(char2List);
 
+          var counter = 0;
+
           char1List.forEach(function(result1) {
             char2List.forEach(function(result2) {
               if (result1.id === result2.id) {
-                $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><p>' + result1.description + '</p></div>');
+                $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p></div>');
+
+                result1.creators.items.forEach(function(creator) {
+                  $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
+                });
+                counter++;
               }
             });
           });
