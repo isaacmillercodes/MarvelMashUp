@@ -33,11 +33,16 @@ function oneCharSearch(name1) {
 
       var counter = 0;
 
-
-
       char1List.forEach(function(result1) {
 
-        $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p><a class="learn-more" href="' + result1.urls[0].url + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + result1.title + '">Buy this issue on Amazon</a></div>');
+        var img = result1.thumbnail.path;
+        var title = result1.title;
+        var description = result1.description;
+        var learnMore = result1.urls[0].url;
+        var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
+
+
+        $('.results-list').append('<div class="row"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
         result1.creators.items.forEach(function(creator) {
           $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
@@ -85,7 +90,15 @@ function twoCharSearch(name1, name2) {
           char1List.forEach(function(result1) {
             char2List.forEach(function(result2) {
               if (result1.id === result2.id) {
-                $('.results-list').append('<div class="row"><img src="' + result1.thumbnail.path + '/portrait_uncanny.jpg"><h5>' + result1.title + '</h5><span class="creator-info"></span><p>' + result1.description + '</p></div>');
+
+                var img = result1.thumbnail.path;
+                var title = result1.title;
+                var description = result1.description;
+                var learnMore = result1.urls[0].url;
+                var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
+
+
+                $('.results-list').append('<div class="row"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
                 result1.creators.items.forEach(function(creator) {
                   $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
