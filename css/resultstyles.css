@@ -37,3 +37,13 @@
 .loading h5 {
   padding-top: 15px;
 }
+
+.no-results h5 {
+  padding-top: 20px;
+  color: white;
+}
+
+.no-results {
+  border: none;
+  background-color: #e23636;
+}
