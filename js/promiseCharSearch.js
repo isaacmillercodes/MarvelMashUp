@@ -71,18 +71,18 @@ $('form').on('submit', function(event) {
   //   var id1 = charId;
   //   return getCharId(char2);
   // })
-  //   .then(function(charId) {
-  //   var id2 = charId;
+  //   .then(function(charId2) {
+  //   var id2 = charId2;
   //   return getComicsList(id1, id2);
   // });
 
   var allIds = [getCharId(char1), getCharId(char2)];
 
-  Promise.all(allIds).then(function(ids) {
-    console.log(getComicsList(allIds[0], allIds[1]));
+  var sharedList = Promise.all(allIds).then(function(ids) {
+    return getComicsList(allIds[0], allIds[1]);
   });
 
-  //console.log(sharedList);
+  console.log(sharedList);
 
   //console.log(char1List);
   //console.log(char2List);
