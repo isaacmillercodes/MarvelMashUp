@@ -1,7 +1,7 @@
 $(document).on('ready', function() {
   console.log('sanity check #3!');
 });
-//more promises
+
 $('form').on('submit', function(event) {
   event.preventDefault();
 
@@ -10,6 +10,8 @@ $('form').on('submit', function(event) {
   $('.no-values').remove();
 
   $('.result').remove();
+
+  $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
 
   var allArray = [];
   var valArray = [];
@@ -31,13 +33,20 @@ $('form').on('submit', function(event) {
 
   console.log(valArray);
 
+  for (var j = 0; j < valArray.length; j++) {
+    valArray[j] = charSearch(valArray[j]);
+  }
+
+  console.log(valArray);
+
   //Refactor with promise.all()
 
   if (valArray.length === 0) {
     $('.results-list').append('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
   } else {
-    charSearch(valArray[0]).then(function(list) {
-      appendList(list);
+    Promise.all(valArray).then(compareLists).then(function(finalList) {
+      appendList(finalList);
+      $('.loading').remove();
     });
   }
 
