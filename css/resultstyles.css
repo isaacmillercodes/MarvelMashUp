@@ -38,12 +38,14 @@
   padding-top: 15px;
 }
 
-.no-results h5 {
+.no-results h5,
+.no-values h5 {
   padding-top: 20px;
   color: white;
 }
 
-.no-results {
+.no-results,
+.no-values {
   border: none;
   background-color: #e23636;
 }
