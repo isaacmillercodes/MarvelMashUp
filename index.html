@@ -17,11 +17,23 @@
     <hr>
     <!--Search Form-->
     <form>
-      <div class="container eight columns offset-by-two">
+      <div class="container twelve columns">
         <div class="row text-fields">
             <h5>Search by Character:<button type="button" class="addCharacter">Add Character Field</button></h5>
             <input type="text" class="four columns offset-by-four" placeholder="Enter character name here..." id="character1">
         </div>
+        <fieldset>
+          <label for="dateChoices"></label>
+          <label for="regularRadio">
+            <input type="radio" name="radios" id="regularRadio" value="radio 1" />
+            <span>Regular Radio</span>
+          </label>
+          <label for="secondRegularRadio">
+            <input type="radio" name="radios" id="secondRegularRadio" value="radio 2" />
+            <span>Regular Radio</span>
+          </label>
+        </fieldset>
+
         <div class="four columns offset-by-five">
           <button type="submit" class="button" name="submit">Submit</button>
         </div>
