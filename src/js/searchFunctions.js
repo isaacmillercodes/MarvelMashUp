@@ -2,24 +2,6 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 });
 
-$('form').on('submit', function(event) {
-  event.preventDefault();
-
-  $('.no-results').remove();
-
-  $('.result').remove();
-
-  var char1 = encodeURI($('#character1').val());
-  var char2 = encodeURI($('#character2').val());
-
-  if (char2 === '') {
-    oneCharSearch(char1);
-  } else {
-    twoCharSearch(char1, char2);
-  }
-
-});
-
 function oneCharSearch(name1) {
 
   $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
