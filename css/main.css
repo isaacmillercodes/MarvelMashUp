@@ -21,3 +21,7 @@ body {
   background-color: #518cca;
   color: white;
 }
+
+.addCharacter {
+  margin-left: 25px;
+}
