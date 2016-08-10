@@ -1,7 +1,7 @@
 $(document).on('ready', function() {
   console.log('sanity check #2!');
 });
-
+//more promises
 $('form').on('submit', function(event) {
   event.preventDefault();
 
