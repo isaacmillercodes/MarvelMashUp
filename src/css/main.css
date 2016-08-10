@@ -21,3 +21,20 @@ body {
   background-color: #518cca;
   color: white;
 }
+
+.addCharacter {
+  margin-left: 25px;
+}
+
+.charactersSearched h5 {
+  text-align: left;
+  float: left;
+}
+
+.charactersSearched {
+  display: flex;
+  align-items: stretch;
+  width: 300px;
+  height: 100%;
+  flex-direction: column;
+}

@@ -2,27 +2,10 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 });
 
-$('form').on('submit', function(event) {
-  event.preventDefault();
-
-  $('.no-results').remove();
-
-  $('.result').remove();
-
-  var char1 = encodeURI($('#character1').val());
-  var char2 = encodeURI($('#character2').val());
-
-  if (char2 === '') {
-    oneCharSearch(char1);
-  } else {
-    twoCharSearch(char1, char2);
-  }
-
-});
-
 function oneCharSearch(name1) {
 
   $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
+  //Refactor with promise.all()
 
   $.ajax({
     url:'https://gateway.marvel.com/v1/public/characters?name=' + name1 + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
@@ -50,11 +33,10 @@ function oneCharSearch(name1) {
         var learnMore = result1.urls[0].url;
         var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
 
-
         $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
         result1.creators.items.forEach(function(creator) {
-          $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
+          $('.creator-info:eq(' + counter + ')').append('<p>' + creator.name + ', ' + creator.role + '</p>');
         });
         counter++;
       });
@@ -122,11 +104,11 @@ function twoCharSearch(name1, name2) {
               var learnMore = combinedResult.urls[0].url;
               var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
 
-
               $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
 
+
               combinedResult.creators.items.forEach(function(creator) {
-                $('.creator-info:eq(' + counter + ')' ).append('<p>' + creator.name + ', ' + creator.role + '</p>');
+                $('.creator-info:eq(' + counter + ')').append('<p>' + creator.name + ', ' + creator.role + '</p>');
               });
               counter++;
 
@@ -138,7 +120,6 @@ function twoCharSearch(name1, name2) {
 
           }
 
-
         });
 
       });
@@ -146,4 +127,5 @@ function twoCharSearch(name1, name2) {
     });
 
   });
+
 }

@@ -2,95 +2,103 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 });
 
-//helper functions
+// var testArray = [];
+//
+// testArray[0] = charSearch('iron%20man');
+// testArray[1] = charSearch('captain%20america');
+// testArray[2] = charSearch('thor');
 
-function getCharId(character) {
-  return new Promise(function(resolve, reject) {
+//This results in [Array[100], Array[100], Array[100]], where each internal array is an array of 100 objects
+//
+// Promise.all(testArray).then(function(superArray) {
+//
+//   console.log(superArray);
+//
+// });
 
-    $.ajax({
-        url:'https://gateway.marvel.com/v1/public/characters?name=' + character + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
-        method: 'GET'
-      })
-      .done(function(charInfo) {
-        var idChar = charInfo.data.results[0].id;
-        //console.log(idChar);
-        return resolve(idChar);
-      })
-      .fail(function(err) {
-        return reject(err);
-      });
-  });
-}
+// Promise.all(testArray).then(function(superArray) {
+//   for (var i = 0; i < superArray.length; i++) {
+//     appendList(superArray[i]);
+//   }
+// });
 
-console.log(getCharId('wolverine'));
+// Promise.all(testArray).then(function(superArray) {
+//   compareLists(superArray);
+// });
 
-// function getComicsList(id) {
-//   return new Promise(function(resolve, reject) {
-//     console.log(id);
-//     $.ajax({
-//       url:'https://gateway.marvel.com:443/v1/public/characters/' + id + '/comics?apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
-//       method: 'GET'
-//     })
-//     .done(function(charComics) {
-//       var comicList = charComics.data.results;
-//       //console.log(comicList);
-//       return resolve(comicList);
-//     })
-//     .fail(function(err) {
-//       return reject(err);
-//     });
+// Promise.all(testArray).then(compareLists)
+//   .then(function(finalList) {
+//     appendList(finalList);
 //   });
-// }
 
-function getComicsList(id1, id2) {
+//character search
+
+function charSearch(name) {
   return new Promise(function(resolve, reject) {
-    //console.log(id);
+
     $.ajax({
-      url: 'https://gateway.marvel.com:443/v1/public/characters/' + id1 + '/comics?sharedAppearances=' + id2 + '&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      url:'https://gateway.marvel.com/v1/public/characters?name=' + name + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
       method: 'GET'
-    })
-    .done(function(charComics) {
-      var comicList = charComics.data.results;
-      //console.log(comicList);
-      return resolve(comicList);
-    })
-    .fail(function(err) {
-      return reject(err);
+    }).done(function(charInfo) {
+      var idChar = charInfo.data.results[0].id;
+      console.log(idChar);
+
+      $.ajax({
+        url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar + '/comics?format=comic&formatType=comic&noVariants=true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+        method: 'GET'
+      }).done(function(charComics) {
+        var charList = charComics.data.results;
+        resolve(charList);
+
+      }).fail(function(err) {
+        console.log(err);
+      });
     });
   });
 }
 
-//Event handler
+function compareLists(arrayOfArrays) {
 
-$('form').on('submit', function(event) {
-  event.preventDefault();
+  var totalArrays = arrayOfArrays.length;
 
-  var char1 = encodeURI($('#character1').val());
-  var char2 = encodeURI($('#character2').val());
+  var combinedList = [];
 
-  // var sharedList = getCharId(char1)
-  //   .then(function(charId) {
-  //   var id1 = charId;
-  //   return getCharId(char2);
-  // })
-  //   .then(function(charId2) {
-  //   var id2 = charId2;
-  //   return getComicsList(id1, id2);
-  // });
+  var allIssuesArray = [];
 
-  var allIds = [getCharId(char1), getCharId(char2)];
+  var matchingIds = [];
 
-  var sharedList = Promise.all(allIds).then(function(ids) {
-    return getComicsList(allIds[0], allIds[1]);
+  arrayOfArrays.forEach(function(innerArray) {
+    innerArray.forEach(function(issue) {
+      allIssuesArray.push(issue);
+    });
   });
 
-  console.log(sharedList);
+  var counts = {};
+  allIssuesArray.forEach(function(issue) {
+    counts[issue.id] = (counts[issue.id] || 0)+1;
+  });
 
-  //console.log(char1List);
-  //console.log(char2List);
+  var val;
 
-  //var char2Id = getCharId(char2);
+  for(val in counts) {
+    if (counts[val] === totalArrays) {
+      matchingIds.push(val);
+    }
+  }
 
-  // getComicsList(char1Id);
+  console.log(matchingIds);
 
-});
+  matchingIds.forEach(function(issueId) {
+    arrayOfArrays[0].forEach(function(issue) {
+      if (issueId == issue.id) {
+        combinedList.push(issue);
+      }
+    });
+  });
+
+  if (combinedList.length === 0) {
+    $('.results-list').append('<div class="row no-results"><h5>No issues found! Try again.</h5></div>');
+  }
+  console.log(combinedList);
+  return combinedList;
+}
