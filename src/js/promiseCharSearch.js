@@ -2,17 +2,31 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 });
 
-// var testArray = [];
+var testArray = [];
+
+testArray[0] = charSearch('iron%20man');
+testArray[1] = charSearch('captain%20america');
+testArray[2] = charSearch('thor');
+
+//This results in [Array[100], Array[100], Array[100]], where each internal array is an array of 100 objects
 //
-// testArray[0] = charSearch('wolverine');
-// testArray[1] = charSearch('storm');
-// testArray[2] = charSearch('cyclops');
+// Promise.all(testArray).then(function(superArray) {
 //
+//   console.log(superArray);
+//
+// });
+
 // Promise.all(testArray).then(function(superArray) {
 //   for (var i = 0; i < superArray.length; i++) {
 //     appendList(superArray[i]);
 //   }
 // });
+
+Promise.all(testArray).then(function(superArray) {
+  compareLists(superArray);
+}).then(function(finalList) {
+  appendList(finalList);
+});
 
 //character search
 
@@ -46,30 +60,68 @@ function charSearch(name) {
 
 function compareLists(arrayOfArrays) {
 
+  var totalArrays = arrayOfArrays.length;
+
   var combinedList = [];
+  var allIssuesArray = [];
+  var matchingIds = [];
 
-  for (var i = 0; i < arrayOfArrays.length; i++) {
-    arrayOfArrays[i].forEach(function(array) {
-
+  arrayOfArrays.forEach(function(innerArray) {
+    innerArray.forEach(function(issue) {
+      allIssuesArray.push(issue);
     });
+  });
+
+  var counts = {};
+  allIssuesArray.forEach(function(issue) {
+    counts[issue.id] = (counts[issue.id] || 0)+1;
+  });
+
+  var val;
+
+  for(val in counts) {
+    if (counts[val] === 3) {
+      matchingIds.push(val);
+    }
   }
 
-  // char1List.forEach(function(result1) {
-  //   char2List.forEach(function(result2) {
-  //     if (result1.id === result2.id) {
-  //       combinedList.push(result1);
-  //     }
-  //   });
-  // });
+  console.log(allIssuesArray);
+  console.log(matchingIds);
 
-  console.log(combinedList);
+  matchingIds.forEach(function(issueId) {
+    arrayOfArrays[0].forEach(function(issue) {
+      console.log(issueId);
+      console.log(issue.id);
+      if (issueId == issue.id) {
+        combinedList.push(issue);
+      }
+    });
+  });
 
-  if (combinedList.length > 0) {
-    appendList(combinedResult);
-  } else {
-
+  if (combinedList.length === 0) {
     $('.results-list').append('<div class="row no-results"><h5>No issues found! Try again.</h5></div>');
-
   }
 
+  return combinedList;
+
+}
+
+function appendList(arr) {
+  var counter = 0;
+
+  arr.forEach(function(result) {
+
+    var img = result.thumbnail.path;
+    var title = result.title;
+    var description = result.description;
+    var learnMore = result.urls[0].url;
+    var encodedTitle = title.replace(/\s/g,'+').replace(/#/g,'%23');
+
+    $('.results-list').append('<div class="row result"><img src="' + img + '/portrait_uncanny.jpg"><h5>' + title + '</h5><span class="creator-info"></span><p>' + description + '</p><a class="learn-more" href="' + learnMore + '">Learn more about this issue</a><br><a class="amazon" href="https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=' + encodedTitle + '">Buy this issue on Amazon</a></div>');
+
+    result.creators.items.forEach(function(creator) {
+      $('.creator-info:eq(' + counter + ')').append('<p>' + creator.name + ', ' + creator.role + '</p>');
+    });
+    counter++;
+  });
 }

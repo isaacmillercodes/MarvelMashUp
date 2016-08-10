@@ -1,1 +1,2 @@
 node_modules
+git subtree push --prefix DIRECTORY_NAME origin gh-pages (pushing to gh-pages from subdirectory)
