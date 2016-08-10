@@ -33,6 +33,8 @@ $('form').on('submit', function(event) {
 
   console.log(valArray);
 
+  //conditional based on if dates are selected
+
   for (var j = 0; j < valArray.length; j++) {
     valArray[j] = charSearch(valArray[j]);
   }
