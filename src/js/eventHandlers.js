@@ -18,11 +18,21 @@ $('form').on('submit', function(event) {
 
 });
 
+var counter = 1;
+
 $('.addCharacter').on('click', function(event) {
   event.preventDefault();
 
   $('#character1').attr('class', 'four columns offset-by-two');
 
-  $('.text-fields').append('<input type="text" class="four columns" placeholder="Enter character name here..." id="character2">');
+  counter++;
+
+  if (counter < 7) {
+    if (counter % 2 === 0) {
+      $('.text-fields').append('<input type="text" class="four columns" placeholder="Enter character name here..." id="character' + counter + '">');
+    } else {
+      $('.text-fields').append('<input type="text" class="four columns offset-by-two" placeholder="Enter character name here..." id="character' + counter + '">');
+    }
+  }
 
 });
