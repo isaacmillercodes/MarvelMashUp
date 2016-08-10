@@ -1,5 +1,5 @@
 $(document).on('ready', function() {
-  console.log('sanity check #2!');
+  console.log('sanity check #3!');
 });
 //more promises
 $('form').on('submit', function(event) {
@@ -31,12 +31,14 @@ $('form').on('submit', function(event) {
 
   console.log(valArray);
 
+  //Refactor with promise.all()
+
   if (valArray.length === 0) {
     $('.results-list').append('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
-  } else if (valArray.length === 1) {
-    oneCharSearch(valArray[0]);
-  } else if (valArray.length === 2) {
-    twoCharSearch(valArray[0], valArray[1]);
+  } else {
+    charSearch(valArray[0]).then(function(list) {
+      appendList(list);
+    });
   }
 
 });
