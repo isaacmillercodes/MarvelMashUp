@@ -11,7 +11,7 @@ $('form').on('submit', function(event) {
 
   $('.result').remove();
 
-  $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
+  $('.text-fields').prepend('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
 
   var allArray = [];
   var valArray = [];
@@ -23,7 +23,7 @@ $('form').on('submit', function(event) {
   allArray[4] = encodeURI($('#character5').val());
   allArray[5] = encodeURI($('#character6').val());
 
-  console.log(allArray);
+  //console.log(allArray);
 
   for (var i = 0; i < allArray.length; i++) {
     if (allArray[i] !== '' && allArray[i] !== 'undefined') {
@@ -31,18 +31,61 @@ $('form').on('submit', function(event) {
     }
   }
 
-  console.log(valArray);
+  //console.log(valArray);
 
-  for (var j = 0; j < valArray.length; j++) {
-    valArray[j] = charSearch(valArray[j]);
+  var rangeSelected = $('input[name="dates"]:checked').val();
+
+  var startDate = '';
+  var endDate = '';
+
+  if (rangeSelected === 'goldenAge') {
+    startDate = new Date(1938, 01, 01);
+    endDate = new Date(1955, 12, 31);
+  } else if (rangeSelected === 'silverAge') {
+    startDate = new Date(1956, 01, 01);
+    endDate = new Date(1970, 12, 31);
+  } else if (rangeSelected === 'bronzeAge') {
+    startDate = new Date(1971, 01, 01);
+    endDate = new Date(1985, 12, 31);
+  } else if (rangeSelected === 'modernAge') {
+    startDate = new Date(1986, 01, 01);
+    endDate = new Date(2016, 12, 31);
+  } else {
+    startDate = $('#startDate').val();
+    endDate = $('#endDate').val();
   }
 
-  console.log(valArray);
+  function charSearchArray(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i] = charSearch(array[i]);
+    }
+  }
+
+  function yearSearchArray(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i] = yearCharSearch(array[i], startDate, endDate);
+    }
+  }
+
+  if (rangeSelected !== undefined) {
+    yearSearchArray(valArray);
+  } else {
+    charSearchArray(valArray);
+  }
+
+  //working charSearch for loop
+
+  // for (var j = 0; j < valArray.length; j++) {
+  //   valArray[j] = charSearch(valArray[j]);
+  // }
+
+  //console.log(valArray);
 
   //Refactor with promise.all()
 
   if (valArray.length === 0) {
-    $('.results-list').append('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
+    $('.loading').remove();
+    $('.text-fields').prepend('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
   } else {
     Promise.all(valArray).then(compareLists).then(function(finalList) {
       appendList(finalList);
