@@ -35,21 +35,29 @@ $('form').on('submit', function(event) {
 
   //conditional based on if dates are selected
 
-  var dateSelected = $('input[name="dates"]:checked').val();
+  // var rangeSelected = $('input[name="dates"]:checked').val();
+  //
+  // var startDate;
+  //
+  // var endDate;
 
-  var startDate = $('#startDate').val();
 
-  var endDate = $('#endDate').val();
+//  startDate = $('#startDate').val();
 
-  console.log(dateSelected);
+//  endDate = $('#endDate').val();
 
-  console.log(startDate);
 
-  console.log(endDate);
 
-  for (var j = 0; j < valArray.length; j++) {
-    valArray[j] = charSearch(valArray[j]);
-  }
+  // console.log(rangeSelected);
+
+  //console.log(startDate);
+
+  //console.log(endDate);
+
+  // for (var j = 0; j < valArray.length; j++) {
+  //   //startDate, endDate
+  //   valArray[j] = yearCharSearch(valArray[j]);
+  // }
 
   //console.log(valArray);
 
@@ -83,16 +91,5 @@ $('.addCharacter').on('click', function(event) {
       $('.text-fields').append('<input type="text" class="four columns offset-by-two" placeholder="Enter character name here..." id="character' + counter + '">');
     }
   }
-
-});
-
-$('.addDateRange').on('click', function(event) {
-  event.preventDefault();
-
-  $('.addDateRange').hide();
-
-  // $('.date-range').prepend('<button type="button" name="button" class="removeDateRange">Remove Date Range</button>');
-
-  $('.dateChoices').append('<input type="radio" name="dates" id="goldenAge" value="goldenAge"/>Golden Age (1938-1955)<input type="radio" name="dates" id="silverAge" value="silverAge"/>Silver Age (1956-1970)<br><input type="radio" name="dates" id="bronzeAge" value="bronzeAge"/>Bronze Age (1971-1985)<input type="radio" name="dates" id="modernAge" value="modernAge"/>Modern Age (1986-present)<span class="custom-date"><input type="radio" name="dates" id="customRange" value="customRange"/>Custom Dates:</span><div class="row date-inputs">Start Date:<input type="date" id="startDate"><br>End Date:<input type="date" id="endDate" class="end-date"></div>');
 
 });
