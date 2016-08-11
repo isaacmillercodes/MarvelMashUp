@@ -27,7 +27,11 @@ body {
 }
 
 .addDateRange {
-  margin-left: 32%;
+  margin-left: 33%;
+}
+
+.removeDateRange {
+  margin-left: 38%;
 }
 
 .custom-date {
@@ -35,7 +39,7 @@ body {
   left: 25%;
 }
 
-input[type="checkbox"] {
+input[type="radio"] {
   margin-left: 10%;
 }
 
