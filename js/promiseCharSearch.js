@@ -28,26 +28,26 @@ function charSearch(name) {
   });
 }
 
-// function yearCharSearch(name, startDate, endDate) {
-//   $.ajax({
-//     url:'https://gateway.marvel.com/v1/public/characters?name=' + name + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
-//     method: 'GET'
-//   }).done(function(charInfo) {
-//     var idChar = charInfo.data.results[0].id;
-//     console.log(idChar);
-//
-//     $.ajax({
-//       url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar + '/comics?format=comic&formatType=comic&noVariants=true&dateRange=' + startDate + '%2C' + endDate + 'true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
-//       method: 'GET'
-//     }).done(function(charComics) {
-//       var charList = charComics.data.results;
-//       resolve(charList);
-//
-//     }).fail(function(err) {
-//       console.log(err);
-//     });
-//   });
-// }
+function yearCharSearch(name, startDate, endDate) {
+  $.ajax({
+    url:'https://gateway.marvel.com/v1/public/characters?name=' + name + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+    method: 'GET'
+  }).done(function(charInfo) {
+    var idChar = charInfo.data.results[0].id;
+    console.log(idChar);
+
+    $.ajax({
+      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar + '/comics?format=comic&formatType=comic&noVariants=true&dateRange=' + startDate + '%2C' + endDate + 'true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      method: 'GET'
+    }).done(function(charComics) {
+      var charList = charComics.data.results;
+      resolve(charList);
+
+    }).fail(function(err) {
+      console.log(err);
+    });
+  });
+}
 
 function compareLists(arrayOfArrays) {
 
