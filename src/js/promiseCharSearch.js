@@ -28,7 +28,7 @@ function charSearch(name) {
   });
 }
 
-function yearCharSearch(name, startDate, endDate) {
+function yearCharSearch(name, date1, date2) {
   $.ajax({
     url:'https://gateway.marvel.com/v1/public/characters?name=' + name + '&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
     method: 'GET'
@@ -37,7 +37,7 @@ function yearCharSearch(name, startDate, endDate) {
     console.log(idChar);
 
     $.ajax({
-      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar + '/comics?format=comic&formatType=comic&noVariants=true&dateRange=' + startDate + '%2C' + endDate + 'true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
+      url:'https://gateway.marvel.com:443/v1/public/characters/' + idChar + '/comics?format=comic&formatType=comic&noVariants=true&dateRange=' + date1 + '%2C' + date2 + 'true&orderBy=-onsaleDate&limit=100&apikey=f0807a37bd4542fa4a26ada4b33c8f5d',
       method: 'GET'
     }).done(function(charComics) {
       var charList = charComics.data.results;
