@@ -26,15 +26,33 @@ body {
   margin-left: 25px;
 }
 
-.charactersSearched h5 {
-  text-align: left;
-  float: left;
+.addDateRange,
+.dateButton {
+  margin-left: 33%;
 }
 
-.charactersSearched {
-  display: flex;
-  align-items: stretch;
-  width: 300px;
-  height: 100%;
-  flex-direction: column;
+.removeDateRange {
+  margin-left: 38%;
+}
+
+.custom-date {
+  position: relative;
+  left: 25%;
+}
+
+input[type="radio"] {
+  margin-left: 10%;
+}
+
+.date-inputs {
+  margin-left: 38%;
+  margin-top: 0;
+}
+
+input[type="date"]:last-of-type {
+  margin-left: 7%;
+}
+
+input[type="date"] {
+  margin-left: 5%;
 }

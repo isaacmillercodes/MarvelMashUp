@@ -22,6 +22,13 @@
             <h5>Search by Character:<button type="button" class="addCharacter">Add Character Field</button></h5>
             <input type="text" class="four columns offset-by-four" placeholder="Enter character name here..." id="character1">
         </div>
+        <div class="row dateRange ten columns offset-by-one">
+            <button type="button" name="button" class="dateButton">Add Date Range for Results?</button>
+            <div class="eight columns offset-by-two dateChoices">
+            </div>
+
+        </div>
+
         <div class="four columns offset-by-five">
           <button type="submit" class="button" name="submit">Submit</button>
         </div>
@@ -46,7 +53,7 @@
       firebase.initializeApp(config);
     </script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <!-- <script type="text/javascript" src="js/searchFunctions.js"></script> -->
+    <script type="text/javascript" src="js/buttonEvents.js"></script>
     <script type="text/javascript" src="js/promiseCharSearch.js"></script>
     <script type="text/javascript" src="js/DOMFunctions.js"></script>
     <script type="text/javascript" src="js/eventHandlers.js"></script>
