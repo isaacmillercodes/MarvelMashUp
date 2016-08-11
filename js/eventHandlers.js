@@ -11,7 +11,7 @@ $('form').on('submit', function(event) {
 
   $('.result').remove();
 
-  $('.results-list').append('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
+  $('.text-fields').prepend('<div class="row loading"><h5>Grabbing your comics...</h5></div>');
 
   var allArray = [];
   var valArray = [];
@@ -23,7 +23,7 @@ $('form').on('submit', function(event) {
   allArray[4] = encodeURI($('#character5').val());
   allArray[5] = encodeURI($('#character6').val());
 
-  console.log(allArray);
+  //console.log(allArray);
 
   for (var i = 0; i < allArray.length; i++) {
     if (allArray[i] !== '' && allArray[i] !== 'undefined') {
@@ -31,20 +31,33 @@ $('form').on('submit', function(event) {
     }
   }
 
-  console.log(valArray);
+  //console.log(valArray);
 
   //conditional based on if dates are selected
+
+  var dateSelected = $('input[name="dates"]:checked').val();
+
+  var startDate = $('#startDate').val();
+
+  var endDate = $('#endDate').val();
+
+  console.log(dateSelected);
+
+  console.log(startDate);
+
+  console.log(endDate);
 
   for (var j = 0; j < valArray.length; j++) {
     valArray[j] = charSearch(valArray[j]);
   }
 
-  console.log(valArray);
+  //console.log(valArray);
 
   //Refactor with promise.all()
 
   if (valArray.length === 0) {
-    $('.results-list').append('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
+    $('.loading').remove();
+    $('.text-fields').prepend('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
   } else {
     Promise.all(valArray).then(compareLists).then(function(finalList) {
       appendList(finalList);
@@ -76,10 +89,10 @@ $('.addCharacter').on('click', function(event) {
 $('.addDateRange').on('click', function(event) {
   event.preventDefault();
 
-  ('.dateChoices').append('<input type="checkbox" name="dates" id="goldenAge" value="goldenAge"/>Golden Age (1938-1955)<input type="checkbox" name="dates" id="silverAge" value="silverAge"/>Silver Age (1956-1970)<br><input type="checkbox"name="dates" id="bronzeAge" value="bronzeAge"/>Bronze Age (1971-1985)<input type="checkbox" name="dates" id="modernAge" value="modernAge"/>Modern Age (1986-present)<span class="custom-date"><input type="checkbox" name="dates" id="customRange"/>Custom Dates:</span><div class="row date-inputs">Start Date:<input type="date" id="startDate"><br>End Date:<input type="date" id="endDate" class="end-date"></div>');
+  $('.addDateRange').hide();
 
-});
+  // $('.date-range').prepend('<button type="button" name="button" class="removeDateRange">Remove Date Range</button>');
 
-$('input[type="checkbox"]').on('change', function() {
-   $(this).siblings('input[type="checkbox"]').prop('checked', false);
+  $('.dateChoices').append('<input type="radio" name="dates" id="goldenAge" value="goldenAge"/>Golden Age (1938-1955)<input type="radio" name="dates" id="silverAge" value="silverAge"/>Silver Age (1956-1970)<br><input type="radio" name="dates" id="bronzeAge" value="bronzeAge"/>Bronze Age (1971-1985)<input type="radio" name="dates" id="modernAge" value="modernAge"/>Modern Age (1986-present)<span class="custom-date"><input type="radio" name="dates" id="customRange" value="customRange"/>Custom Dates:</span><div class="row date-inputs">Start Date:<input type="date" id="startDate"><br>End Date:<input type="date" id="endDate" class="end-date"></div>');
+
 });

@@ -2,35 +2,6 @@ $(document).on('ready', function() {
   console.log('sanity check!');
 });
 
-// var testArray = [];
-//
-// testArray[0] = charSearch('iron%20man');
-// testArray[1] = charSearch('captain%20america');
-// testArray[2] = charSearch('thor');
-
-//This results in [Array[100], Array[100], Array[100]], where each internal array is an array of 100 objects
-//
-// Promise.all(testArray).then(function(superArray) {
-//
-//   console.log(superArray);
-//
-// });
-
-// Promise.all(testArray).then(function(superArray) {
-//   for (var i = 0; i < superArray.length; i++) {
-//     appendList(superArray[i]);
-//   }
-// });
-
-// Promise.all(testArray).then(function(superArray) {
-//   compareLists(superArray);
-// });
-
-// Promise.all(testArray).then(compareLists)
-//   .then(function(finalList) {
-//     appendList(finalList);
-//   });
-
 //character search
 
 function charSearch(name) {
@@ -107,8 +78,6 @@ function compareLists(arrayOfArrays) {
     }
   }
 
-  console.log(matchingIds);
-
   matchingIds.forEach(function(issueId) {
     arrayOfArrays[0].forEach(function(issue) {
       if (issueId == issue.id) {
@@ -118,8 +87,7 @@ function compareLists(arrayOfArrays) {
   });
 
   if (combinedList.length === 0) {
-    $('.results-list').append('<div class="row no-results"><h5>No issues found! Try again.</h5></div>');
+    $('.text-fields').prepend('<div class="row no-results"><h5>No issues found! Try again.</h5></div>');
   }
-  console.log(combinedList);
   return combinedList;
 }
