@@ -26,7 +26,8 @@ body {
   margin-left: 25px;
 }
 
-.addDateRange {
+.addDateRange,
+.dateButton {
   margin-left: 33%;
 }
 
