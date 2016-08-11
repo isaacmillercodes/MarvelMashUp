@@ -35,38 +35,49 @@ $('form').on('submit', function(event) {
 
   var rangeSelected = $('input[name="dates"]:checked').val();
 
-  var startDate;
-  var endDate;
-
-
+  var startDate = '';
+  var endDate = '';
 
   if (rangeSelected === 'goldenAge') {
-    startDate = 1938-01-01;
-    endDate = 1955-12-31;
+    startDate = new Date(1938, 01, 01);
+    endDate = new Date(1955, 12, 31);
   } else if (rangeSelected === 'silverAge') {
-    startDate = 1956-01-01;
-    endDate = 1970-12-31;
+    startDate = new Date(1956, 01, 01);
+    endDate = new Date(1970, 12, 31);
   } else if (rangeSelected === 'bronzeAge') {
-    startDate = 1971-01-01;
-    endDate = 1985-12-31;
+    startDate = new Date(1971, 01, 01);
+    endDate = new Date(1985, 12, 31);
   } else if (rangeSelected === 'modernAge') {
-    startDate = 1971-01-01;
-    endDate = 1985-12-31;
+    startDate = new Date(1986, 01, 01);
+    endDate = new Date(2016, 12, 31);
   } else {
     startDate = $('#startDate').val();
     endDate = $('#endDate').val();
   }
 
-
-  if (rangeSelected === 'undefined') {
-    for (var j = 0; j < valArray.length; j++) {
-      valArray[j] = charSearch(valArray[j]);
-    }
-  } else {
-    for (var k = 0; k < valArray.length; k++) {
-      valArray[k] = yearCharSearch(valArray[k], startDate, endDate);
+  function charSearchArray(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i] = charSearch(array[i]);
     }
   }
+
+  function yearSearchArray(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i] = yearCharSearch(array[i], startDate, endDate);
+    }
+  }
+
+  if (rangeSelected !== undefined) {
+    yearSearchArray(valArray);
+  } else {
+    charSearchArray(valArray);
+  }
+
+  //working charSearch for loop
+
+  // for (var j = 0; j < valArray.length; j++) {
+  //   valArray[j] = charSearch(valArray[j]);
+  // }
 
   //console.log(valArray);
 
