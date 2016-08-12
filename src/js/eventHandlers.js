@@ -73,16 +73,6 @@ $('form').on('submit', function(event) {
     charSearchArray(valArray);
   }
 
-  //working charSearch for loop
-
-  // for (var j = 0; j < valArray.length; j++) {
-  //   valArray[j] = charSearch(valArray[j]);
-  // }
-
-  //console.log(valArray);
-
-  //Refactor with promise.all()
-
   if (valArray.length === 0) {
     $('.loading').remove();
     $('.text-fields').prepend('<div class="row no-values"><h5>Please enter at least one character name.</h5></div>');
