@@ -69,12 +69,12 @@ function compareLists(arrayOfArrays) {
 
   var counts = {};
   allIssuesArray.forEach(function(issue) {
-    counts[issue.id] = (counts[issue.id] || 0)+1;
+    counts[issue.id] = (counts[issue.id] || 0) + 1;
   });
 
   var val;
 
-  for(val in counts) {
+  for (val in counts) {
     if (counts[val] === totalArrays) {
       matchingIds.push(val);
     }
