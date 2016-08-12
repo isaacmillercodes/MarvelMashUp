@@ -13,15 +13,6 @@ $('.dateButton').on('click', function(event) {
 
 });
 
-// function addDateButton() {
-//
-//   counter++;
-//
-//   if (counter === 1) {
-//     $('.dateRange').append('<button type="button" name="button" class="addDate">Add Date Range for Results?</button><br>');
-//   }
-// }
-
 $(document).on('click', '.removeDate', function(event) {
   event.preventDefault();
 
@@ -30,7 +21,6 @@ $(document).on('click', '.removeDate', function(event) {
   $('.removeDate').remove();
 
   $('.dateRange').append('<button type="button" name="button" class="addDate">Add Date Range for Results?</button>');
-
 
 });
 
@@ -45,11 +35,6 @@ $(document).on('click', '.addDate', function(event) {
 
 });
 
-
-
-
-
-
-$(document).on("click", 'input[type="checkbox"]', function() {
-  $(this).siblings(":checked").removeAttr('checked');
+$(document).on('click', 'input[type="checkbox"]', function() {
+  $(this).siblings(':checked').removeAttr('checked');
 });
