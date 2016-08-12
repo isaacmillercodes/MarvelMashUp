@@ -26,18 +26,17 @@ body {
   margin-left: 25px;
 }
 
-.addDateRange,
 .dateButton {
   margin-left: 33%;
 }
 
-.removeDateRange {
-  margin-left: 38%;
+.removeDate,
+.addDate {
+  margin-left: 32%;
 }
 
-.custom-date {
-  position: relative;
-  left: 25%;
+input[type="checkbox"]:last-of-type {
+  margin-left: 40%;
 }
 
 input[type="checkbox"] {
