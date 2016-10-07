@@ -53,15 +53,16 @@ function yearCharSearch(name, date1, date2) {
 
 function compareLists(arrayOfArrays) {
 
-  var totalArrays = arrayOfArrays.length;
+  var totalArrays = arrayOfArrays.length; // n
 
-  var combinedList = [];
+  var combinedList = []; // m
 
-  var allIssuesArray = [];
+  var allIssuesArray = []; // l
 
-  var matchingIds = [];
+  var matchingIds = []; // k
 
-  arrayOfArrays.forEach(function(innerArray) {
+  // n * m
+  arrayOfArrays.forEach(function(innerArray) { // n
     innerArray.forEach(function(issue) {
       allIssuesArray.push(issue);
     });
